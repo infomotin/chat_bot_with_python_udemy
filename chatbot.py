@@ -88,3 +88,11 @@ for word,count in word2count.items():
     if count >= threshold:
         answord2int[word] = word_num
         word_num +=1
+#adding Token 
+tokens = ['<PAD>','<EOS>','<OUT>','<SOS>']
+for token in tokens:
+    questionword2int[token] = len(questionword2int)+1
+    #questionword2int[token] = len()
+for token in tokens:
+    answord2int[token] = len(answord2int)+1
+    #questionword2int[token] = len()
