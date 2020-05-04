@@ -96,3 +96,10 @@ for token in tokens:
 for token in tokens:
     answord2int[token] = len(answord2int)+1
     #questionword2int[token] = len()
+#create invers dic for  answord2int  invasces 
+
+answord2word = {w_i:w for w,w_i in answord2int.items()}#key to value and value to key 
+#add eos in every clanans string 
+for i in range(len(clean_ans)):
+    clean_ans[i] +=' <EOS>'
+    # clean_ans[i] =' <EOS>'+clean_ans[i]
