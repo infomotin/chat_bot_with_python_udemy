@@ -103,3 +103,26 @@ answord2word = {w_i:w for w,w_i in answord2int.items()}#key to value and value t
 for i in range(len(clean_ans)):
     clean_ans[i] +=' <EOS>'
     # clean_ans[i] =' <EOS>'+clean_ans[i]
+
+
+questions_to_int = []
+for question in clean_qu:
+    ints = []
+    for word in question.split():
+        if word not in questionword2int:
+            ints.append(questionword2int['<OUT>'])
+        else:
+             ints.append(questionword2int[word])
+    
+    questions_to_int.append(ints)
+
+answear_to_int = []
+for ans in clean_ans:
+    ints = []
+    for word in ans.split():
+        if word not in answord2int:
+            ints.append(answord2int['<OUT>'])
+        else:
+             ints.append(answord2int[word])
+    
+    answear_to_int.append(ints)
