@@ -135,3 +135,13 @@ for length in range(1,25+1):
         if len(i[1]) == length:
             sorted_clean_questions.append(questions_to_int[i[0]])
             sorted_clean_answears.append(answear_to_int[i[0]])
+
+
+#Cretating Place Holder for input and the tergets 
+def model_inputs():
+    inputs = tf.placeholder(tf.int32,[None, None],name='input')
+    targets = tf.placeholder(tf.int32,[None, None],name='target')
+    learning_rate = tf.placeholder(tf.float32,name='learning_rate')
+    keep_prob = tf.placeholder(tf.float32,name='keep_prob')
+    return inputs,targets,learning_rate,keep_prob
+           
