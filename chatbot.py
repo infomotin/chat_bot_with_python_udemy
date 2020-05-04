@@ -126,3 +126,12 @@ for ans in clean_ans:
              ints.append(answord2int[word])
     
     answear_to_int.append(ints)
+
+#shorting questing and answear by the length of questions 
+sorted_clean_questions = []
+sorted_clean_answears = []
+for length in range(1,25+1):
+    for i in enumerate(questions_to_int):
+        if len(i[1]) == length:
+            sorted_clean_questions.append(questions_to_int[i[0]])
+            sorted_clean_answears.append(answear_to_int[i[0]])
