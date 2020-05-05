@@ -144,4 +144,9 @@ def model_inputs():
     learning_rate = tf.placeholder(tf.float32,name='learning_rate')
     keep_prob = tf.placeholder(tf.float32,name='keep_prob')
     return inputs,targets,learning_rate,keep_prob
-           
+#preprosessing Target
+def preprocess_targets(targets,word2int,batch_size):
+    left_side = tf.fill([batch_size,1],word2int['<SOS>'])
+    right_side= tf.strided_slice(targets,[0,0],[batch_size,-1],[1,1])
+    preprocessed_targets = tf.concat([left_side,right_side],1)
+    return preprocessed_targets
