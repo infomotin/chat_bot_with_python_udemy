@@ -271,3 +271,26 @@ def seq2seq_model(inputs,targets,keep_prob,batch_size,sequence_length,answers_nu
                                                         batch_size
                                                         )
     return training_predictions,test_predictions
+# training seq2seq_model
+
+#setup hyperrameting 
+
+epochs = 100
+batch_size =64
+rnn_size = 512
+num_layers =3
+encoding_embedding_size = 512
+decoding_embedding_size = 512
+learning_rate = 0.01
+learning_rate_decay = 0.9
+min_learning_rate = 0.0001
+keep_probability = 0.5
+
+#tf session 
+ops.reset_default_graph()
+import tensorflow.compat.v1 as tfc
+session = tfc.InteractiveSession()
+#loding Model inputs 
+inputs, targets, learning_rate ,keep_prob =  model_inputs()
+#setting The sequence length 
+sequence_length = tf.placeholder_with_default(25, None, name='sequence_length')
