@@ -1,4 +1,3 @@
-#import libray for this chatbots
 
 import torch
 import torch.nn as nn
@@ -11,7 +10,6 @@ import os
 import unicodedata
 import codecs
 import itertools
-
 #chacking CUDA GPU is avalabe
 
 CUDA = torch.cuda.is_available()
@@ -25,7 +23,6 @@ with open(lines_filepath,'r') as file:
 for line in lines[:8]:#just Show 8 line data 
     
     print(line.strip())
-    
 #Now describe eatch line data set 
 #L1045 +++$+++ u0 +++$+++ m0 +++$+++ BIANCA +++$+++ They do not!
 #lineId        characterId  movieId  character text
@@ -86,10 +83,6 @@ with open(movie_conversations_filepath,'r',encoding='iso-8859-1') as f:
             convObj["lines"].append(lines[lineId])
         conversations.append(convObj)
         #{'charector1id': 'u0', 'charector2id': 'u2', 'moviID': 'm0', 'conversID': "['L194', 'L195', 'L196', 'L197']\n", 'lines': [{'lineId': 'L194', 'characterId': 'u0', 'moviID': 'm0', 'chractor': 'BIANCA', 'text': 'Can we make this quick?  Roxanne Korrine and Andrew Barrett are having an incredibly horrendous public break- up on the quad.  Again.\n'}, {'lineId': 'L195', 'characterId': 'u2', 'moviID': 'm0', 'chractor': 'CAMERON', 'text': "Well, I thought we'd start with pronunciation, if that's okay with you.\n"}, {'lineId': 'L196', 'characterId': 'u0', 'moviID': 'm0', 'chractor': 'BIANCA', 'text': 'Not the hacking and gagging and spitting part.  Please.\n'}, {'lineId': 'L197', 'characterId': 'u2', 'moviID': 'm0', 'chractor': 'CAMERON', 'text': "Okay... then how 'bout we try out some French cuisine.  Saturday?  Night?\n"}]}
-        
-        
-        
-        
 #Excutind pair of secetence 
 qu_pair = []
 for conversation in conversations:
@@ -98,17 +91,19 @@ for conversation in conversations:
         targetline = conversation["lines"][i+1]["text"].strip()
         if inputline and targetline:
             qu_pair.append([inputline,targetline])
-            
 # save this file
 datafile = os.path.join("New folder","formated_movie_lines.txt")
 demiliter = '\t'
 #cleaing the ans and qu 
-demiliter = str(codecs.decode(demiliter,"unicode_escape"))
+demiliter = str(codecs.decode(demiliter, "unicode_escape"))
+# str(codecs.decode(
+#     {P:f "))
+
 
 # write a new csv file 
 print("Written A New CSV ans And Quations File ")
 with open(datafile,'w',encoding="utf-8") as outfile:
-    write = csv.writer(outfile,demiliter=demiliter)
+    write = csv.writer(outfile, delimiter=demiliter)
     for pait in qu_pair:
-        writer.writerow(pait)
+        write.writerow(pait)
 print("Writer Sunsscd!!!")
