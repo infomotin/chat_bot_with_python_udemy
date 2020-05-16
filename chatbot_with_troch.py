@@ -102,7 +102,12 @@ def normalizeString(s):
     s = re.sub("r[^a-zA-Z.!?]+",r" ",s)
     s = re.sub(r"\s+",r" ",s).strip()
     return s
+MAX_LENGTH = 10
+def filePair(p):
+    return len(p[0].split()) < MAX_LENGTH and len(p[1]) <MAX_LENGTH
 
+def filePairs(pairs):
+    return [pair for pair in pairs if filePair(pair)]
 datafile = os.path.join("New folder","formated_movie_lines.txt")
 print("Reading Data and Processing -----------")   
 lines = open(datafiel,encoding='utf-8').read().strip().split('\n')
@@ -111,3 +116,10 @@ print("OK")
 
 
 voc = Vocabulary("New folder")
+
+MAX_LENGTH = 10
+def filePair(p):
+    return len(p[0].split()) < MAX_LENGTH and len(p[1]) <MAX_LENGTH
+
+def filePairs(pairs):
+    return [pair for pair in pairs if filePair(pair)]
