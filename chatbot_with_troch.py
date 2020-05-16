@@ -25,7 +25,8 @@ with open(lines_filepath,'r',encoding='iso-8859-1') as f:
         lineObj = {}
         for i,field in enumerate(line_fields):            
             lineObj[field] = values[i]
-            lines[lineObj["lineId"]] = lineObj            
+            lines[lineObj["lineId"]] = lineObj
+line_fields = []
 conv_fields = ['charector1id','charector2id','moviID','conversID']
 conversations =[]
 with open(movie_conversations_filepath,'r',encoding='iso-8859-1') as f:
@@ -102,12 +103,7 @@ def normalizeString(s):
     s = re.sub("r[^a-zA-Z.!?]+",r" ",s)
     s = re.sub(r"\s+",r" ",s).strip()
     return s
-MAX_LENGTH = 10
-def filePair(p):
-    return len(p[0].split()) < MAX_LENGTH and len(p[1]) <MAX_LENGTH
 
-def filePairs(pairs):
-    return [pair for pair in pairs if filePair(pair)]
 datafile = os.path.join("New folder","formated_movie_lines.txt")
 print("Reading Data and Processing -----------")   
 lines = open(datafiel,encoding='utf-8').read().strip().split('\n')
@@ -116,10 +112,42 @@ print("OK")
 
 
 voc = Vocabulary("New folder")
-
 MAX_LENGTH = 10
-def filePair(p):
+def filterPair(p):
     return len(p[0].split()) < MAX_LENGTH and len(p[1]) <MAX_LENGTH
 
-def filePairs(pairs):
-    return [pair for pair in pairs if filePair(pair)]
+def filterPairs(pairs):
+    return [pair for pair in pairs if filterPair(pair)]
+pairs =[pair for pair in pairs if len(pair)>1]
+print("{}".format(len(pairs)))
+pairs = filterPairs(pairs)
+print("{}".format(len(pairs)))
+for pair in pairs:
+    voc.addSentence(pair[0])
+    voc.addSentence(pair[1])
+print(voc.num_words)
+for pair in pairs[:10]:
+    print(pair)
+
+MIN_COUNT = 3
+def trimRowWords(voc,pairs,MIN_COUNT):
+    voc.trim(MIN_COUNT)
+    keep_pairs = []
+    for pair in pairs:
+        input_sentence = pair[0]
+        output_sentence = pair[1]
+        keep_input = True
+        keep_output = True
+        for word in input_sentence.split(' '):
+            if word not in voc.word2index:
+                keep_input = False
+                break
+        for word in output_sentence.split(' '):
+            if word not in voc.word2index:
+                keep_output = False
+                break
+
+        if keep_input and keep_output:
+            keep_pairs.append(pair)
+    return keep_pairs
+pairs = trimRowWords(voc,pairs,MIN_COUNT)
